@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Evaluación Inicial - Competencia TEC4.2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: Se ha diseñado una SPA con navegación por pestañas para evaluar la competencia TEC4.2. La estructura de dos columnas (instrucciones y rúbrica) se mantiene. El flujo de evaluación es holístico, cubriendo las distintas facetas de la competencia: 1) Fabricación y uso de recursos (Reto Práctico), 2) Análisis de sostenibilidad (ACV Express), 3) Diseño de soluciones (Mochila Segura), 4) Análisis de procesos (Código Roto), 5) Aplicación de conocimientos (Materiales). Esta secuencia permite una evaluación inicial completa de la capacidad del alumnado para aplicar conocimientos de forma práctica y crítica. -->
+    <!-- Visualization & Content Choices: El contenido se basa en retos prácticos y análisis de casos. Objetivo: Evaluar la aplicación de técnicas, el análisis de ciclo de vida y el diseño de soluciones accesibles y sostenibles. Método: Se emplean rúbricas y listas de cotejo interactivas. Interacción: El docente hace clic en las celdas o botones para una evaluación dinámica con cálculo automático de puntuación. Justificación: Este enfoque es ideal para valorar una competencia tan procedimental, permitiendo una observación directa de cómo el alumnado fabrica, analiza y diseña. Librería/Método: Vanilla JavaScript. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #1a202c;
+        }
+        .nav-btn {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-btn.active {
+            border-bottom-color: #C05621;
+            color: #C05621;
+            font-weight: 700;
+        }
+        .rubric-table td, .checklist-item {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .rubric-table td:hover {
+            background-color: #FEF3C7;
+        }
+        .rubric-table td.selected {
+            background-color: #FBBF24;
+            color: #1f2937;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        }
+        .checklist-item .option:hover {
+            background-color: #E2E8F0;
+        }
+        .checklist-item .option.selected-yes {
+            background-color: #48BB78;
+            color: white;
+        }
+        .checklist-item .option.selected-no {
+            background-color: #F56565;
+            color: white;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E2E8F0;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .print-area, .print-area * {
+                visibility: visible;
+            }
+            .print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 py-8 md:py-12">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Evaluación de Soluciones Tecnológicas</h1>
+            <p class="mt-3 text-lg text-gray-600 max-w-3xl mx-auto">Instrumentos para medir la Competencia Específica <span class="font-semibold text-orange-700">TEC4.2</span> en 4º de ESO.</p>
+        </header>
+
+        <div class="w-full max-w-6xl mx-auto mb-10 p-2 bg-white rounded-xl shadow-md no-print">
+            <nav class="flex flex-wrap justify-around items-center">
+                <button data-target="instrumento1" class="nav-btn active flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">1. Reto Práctico</button>
+                <button data-target="instrumento2" class="nav-btn flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">2. ACV Express</button>
+                <button data-target="instrumento3" class="nav-btn flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">3. Mochila Segura</button>
+                <button data-target="instrumento4" class="nav-btn flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">4. Código Roto</button>
+                <button data-target="instrumento5" class="nav-btn flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">5. Materiales</button>
+            </nav>
+        </div>
+
+        <main id="content-area">
+            <!-- Instrumento 1: Mini Reto Práctico "Luz Automática" -->
+            <section id="instrumento1" class="content-section">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="card rounded-xl shadow-lg p-6 md:p-8">
+                        <h2 class="text-2xl font-bold text-orange-800 mb-4">Instrumento 1: Mini Reto Práctico "Luz Automática"</h2>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-1">Planteamiento de la Tarea</h3>
+                        <p class="text-gray-600 mb-4"><strong>Contexto:</strong> Una de las formas más sencillas de ahorrar energía es encender las luces solo cuando son necesarias.</p>
+                        <p class="text-gray-600 mb-4"><strong>Tu Misión:</strong> Usando TinkerCAD Circuits, monta y programa un circuito simple que encienda un LED automáticamente cuando la luz ambiental sea baja (simulando que se hace de noche).</p>
+                        
+                        <h3 class="text-lg font-semibold text-gray-700 mt-6 mb-3">Componentes Necesarios</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>Placa Arduino UNO</li>
+                            <li>Protoboard</li>
+                            <li>1 Fotorresistencia (LDR)</li>
+                            <li>1 LED</li>
+                            <li>2 Resistencias (una de 10kΩ y una de 220Ω)</li>
+                        </ul>
+                    </div>
+
+                    <div class="card rounded-xl shadow-lg p-6 md:p-8 print-area">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-2xl font-bold text-orange-800">Rúbrica de Evaluación</h2>
+                            <button onclick="window.print()" class="no-print bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">Imprimir</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500 rubric-table" data-instrument="1">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-4 w-1/4">Indicador</th>
+                                        <th scope="col" class="py-3 px-4 text-center">1 (Iniciado)</th>
+                                        <th scope="col" class="py-3 px-4 text-center">2 (En desarrollo)</th>
+                                        <th scope="col" class="py-3 px-4 text-center">3 (Competente)</th>
+                                        <th scope="col" class="py-3 px-4 text-center">4 (Experto)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Aplicación de Técnicas (Montaje)</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">El circuito tiene errores graves de conexión.</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">El circuito está montado, pero con errores menores.</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">El montaje del circuito es correcto y funcional.</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">El montaje es limpio, ordenado y sigue las convenciones.</td>
+                                    </tr>
+                                    <tr class="bg-white border-b">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Uso de Recursos Tecnológicos (Código)</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">El código no funciona o está incompleto.</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">El código funciona, pero la lógica es incorrecta o poco eficiente.</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">El código lee el sensor y controla el LED correctamente.</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">El código es eficiente e incluye comentarios explicativos.</td>
+                                    </tr>
+                                    <tr class="bg-white border-b">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Fabricación de una Solución Sostenible</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">No entiende el propósito del circuito.</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">El circuito funciona, pero no logra el objetivo (ej: se enciende con luz).</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">La solución responde a la necesidad de ahorro energético.</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">Ajusta el umbral del sensor para optimizar el encendido.</td>
+                                    </tr>
+                                    <tr class="bg-white">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Uso Apropiado y Seguro</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">Conecta componentes de forma que podrían dañarse (ej: LED sin R).</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">El circuito es seguro, pero muestra dudas.</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">Trabaja de forma autónoma y segura en el entorno digital.</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">Demuestra total autonomía y buenas prácticas de seguridad.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <div class="mt-6 text-right">
+                            <span class="text-gray-600 font-medium">Puntuación Total: </span>
+                            <span id="score-instrument1" class="text-2xl font-bold text-orange-700">0 / 16</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Instrumento 2: ACV Express -->
+            <section id="instrumento2" class="content-section hidden">
+                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="card rounded-xl shadow-lg p-6 md:p-8">
+                        <h2 class="text-2xl font-bold text-orange-800 mb-4">Instrumento 2: Análisis de Ciclo de Vida Express</h2>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-1">Planteamiento de la Tarea</h3>
+                        <p class="text-gray-600 mb-4"><strong>Contexto:</strong> Cualquier producto, por simple que parezca, tiene un impacto desde su creación hasta que se convierte en residuo. Analizarlo nos ayuda a tomar mejores decisiones.</p>
+                        <p class="text-gray-600 mb-4"><strong>Tu Misión:</strong> Compara el ciclo de vida de un **vaso de café de papel de un solo uso** con el de una **taza de cerámica reutilizable**. Completa una tabla en Google Docs identificando al menos un impacto positivo y uno negativo para cada producto en las fases de fabricación y fin de vida.</p>
+                    </div>
+
+                     <div class="card rounded-xl shadow-lg p-6 md:p-8 print-area">
+                        <div class="flex justify-between items-center mb-4">
+                           <h2 class="text-2xl font-bold text-orange-800">Lista de Cotejo</h2>
+                           <button onclick="window.print()" class="no-print bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">Imprimir</button>
+                        </div>
+                        <div id="checklist-instrument2" class="space-y-3">
+                            <div class="checklist-item" data-group="1"><p>Identifica un impacto relevante en la **fabricación** del vaso de papel (ej: consumo de madera/agua).</p><div class="flex mt-1 rounded-lg border w-24 text-center text-sm font-bold overflow-hidden"><div class="option flex-1 p-1" data-value="yes">Sí</div><div class="option flex-1 p-1" data-value="no">No</div></div></div>
+                            <div class="checklist-item" data-group="2"><p>Identifica un impacto relevante en el **fin de vida** del vaso de papel (ej: residuo, difícil reciclaje).</p><div class="flex mt-1 rounded-lg border w-24 text-center text-sm font-bold overflow-hidden"><div class="option flex-1 p-1" data-value="yes">Sí</div><div class="option flex-1 p-1" data-value="no">No</div></div></div>
+                            <div class="checklist-item" data-group="3"><p>Identifica un impacto relevante en la **fabricación** de la taza de cerámica (ej: consumo de energía del horno).</p><div class="flex mt-1 rounded-lg border w-24 text-center text-sm font-bold overflow-hidden"><div class="option flex-1 p-1" data-value="yes">Sí</div><div class="option flex-1 p-1" data-value="no">No</div></div></div>
+                            <div class="checklist-item" data-group="4"><p>Identifica un impacto relevante en el **fin de vida** de la taza de cerámica (ej: durabilidad, residuo si se rompe).</p><div class="flex mt-1 rounded-lg border w-24 text-center text-sm font-bold overflow-hidden"><div class="option flex-1 p-1" data-value="yes">Sí</div><div class="option flex-1 p-1" data-value="no">No</div></div></div>
+                            <div class="checklist-item" data-group="5"><p>Aplica un criterio de sostenibilidad al comparar ambos productos (ej: reutilización vs. un solo uso).</p><div class="flex mt-1 rounded-lg border w-24 text-center text-sm font-bold overflow-hidden"><div class="option flex-1 p-1" data-value="yes">Sí</div><div class="option flex-1 p-1" data-value="no">No</div></div></div>
+                            <div class="checklist-item" data-group="6"><p>Llega a una conclusión lógica sobre qué producto es más sostenible a largo plazo.</p><div class="flex mt-1 rounded-lg border w-24 text-center text-sm font-bold overflow-hidden"><div class="option flex-1 p-1" data-value="yes">Sí</div><div class="option flex-1 p-1" data-value="no">No</div></div></div>
+                        </div>
+                        <div class="mt-6 text-right">
+                            <span class="text-gray-600 font-medium">Total de "Sí": </span>
+                            <span id="score-instrument2" class="text-2xl font-bold text-orange-700">0 / 6</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Instrumento 3: Propuesta de Solución "Mochila Segura" -->
+            <section id="instrumento3" class="content-section hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="card rounded-xl shadow-lg p-6 md:p-8">
+                        <h2 class="text-2xl font-bold text-orange-800 mb-4">Instrumento 3: Propuesta de Solución "Mochila Segura"</h2>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-1">Planteamiento de la Tarea</h3>
+                        <p class="text-gray-600 mb-4"><strong>Contexto:</strong> Un problema común es olvidarse la mochila en un sitio o, peor aún, que te la roben sin darte cuenta.</p>
+                        <p class="text-gray-600 mb-4"><strong>Tu Misión:</strong> Diseña una solución tecnológica para este problema. No tienes que construirla, solo idearla. Crea una ficha de proyecto en Google Docs.</p>
+                        
+                        <h3 class="text-lg font-semibold text-gray-700 mt-6 mb-3">Contenido de la Ficha</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-gray-600">
+                           <li>**Nombre y Lema:** Ponle un nombre creativo a tu solución.</li>
+                           <li>**Descripción:** Explica cómo funciona. (Ej: "Un llavero y un dispositivo en la mochila se conectan por Bluetooth. Si se alejan demasiado, el llavero pita").</li>
+                           <li>**Componentes:** Haz una lista de los componentes electrónicos que necesitarías.</li>
+                           <li>**Análisis de Accesibilidad:** ¿Cómo podría usar esta solución una persona con discapacidad auditiva? Propón una adaptación.</li>
+                        </ol>
+                    </div>
+
+                    <div class="card rounded-xl shadow-lg p-6 md:p-8 print-area">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-2xl font-bold text-orange-800">Rúbrica de Evaluación</h2>
+                            <button onclick="window.print()" class="no-print bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">Imprimir</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                           <table class="w-full text-sm text-left text-gray-500 rubric-table" data-instrument="3">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-4 w-1/4">Indicador</th>
+                                        <th scope="col" class="py-3 px-4 text-center">1 (Iniciado)</th>
+                                        <th scope="col" class="py-3 px-4 text-center">2 (En desarrollo)</th>
+                                        <th scope="col" class="py-3 px-4 text-center">3 (Competente)</th>
+                                        <th scope="col" class="py-3 px-4 text-center">4 (Experto)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Respuesta a la Necesidad</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">La solución no resuelve el problema planteado.</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">La solución es poco práctica o muy compleja.</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">La propuesta es una solución lógica y viable para el problema.</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">La solución es original y muy bien pensada.</td>
+                                    </tr>
+                                    <tr class="bg-white border-b">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Aplicación de Conocimientos</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">No identifica ningún componente electrónico.</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">Lista componentes, pero no son los adecuados.</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">Identifica componentes lógicos para la solución (ej: Bluetooth, zumbador).</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">La lista de componentes es detallada y precisa.</td>
+                                    </tr>
+                                    <tr class="bg-white">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Análisis de Accesibilidad</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">No considera la accesibilidad.</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">La adaptación propuesta es poco efectiva.</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">Propone una adaptación lógica y funcional (ej: vibración, luz).</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">Diseña la solución pensando en la accesibilidad desde el principio.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <div class="mt-6 text-right">
+                            <span class="text-gray-600 font-medium">Puntuación Total: </span>
+                            <span id="score-instrument3" class="text-2xl font-bold text-orange-700">0 / 12</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Instrumento 4: Depuración de Código "Semáforo Roto" -->
+            <section id="instrumento4" class="content-section hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="card rounded-xl shadow-lg p-6 md:p-8">
+                        <h2 class="text-2xl font-bold text-orange-800 mb-4">Instrumento 4: Depuración de Código "Semáforo Roto"</h2>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-1">Planteamiento de la Tarea</h3>
+                        <p class="text-gray-600 mb-4"><strong>Contexto:</strong> Rara vez un programa funciona a la primera. Saber analizar un código, encontrar errores y corregirlos (depurar) es una habilidad fundamental.</p>
+                        <p class="text-gray-600 mb-4"><strong>Tu Misión:</strong> El profesor/a te dará un enlace a un proyecto de TinkerCAD con el código por bloques de un semáforo. El código tiene un error: el semáforo pasa de verde directamente a rojo, sin pasar por el ámbar. Tu tarea es encontrar el error y arreglarlo.</p>
+                    </div>
+
+                    <div class="card rounded-xl shadow-lg p-6 md:p-8 print-area">
+                        <div class="flex justify-between items-center mb-4">
+                           <h2 class="text-2xl font-bold text-orange-800">Rúbrica de Evaluación</h2>
+                           <button onclick="window.print()" class="no-print bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">Imprimir</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                           <table class="w-full text-sm text-left text-gray-500 rubric-table" data-instrument="4">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-4 w-1/4">Indicador</th>
+                                        <th scope="col" class="py-3 px-4 text-center">1 (Iniciado)</th>
+                                        <th scope="col" class="py-3 px-4 text-center">2 (En desarrollo)</th>
+                                        <th scope="col" class="py-3 px-4 text-center">3 (Competente)</th>
+                                        <th scope="col" class="py-3 px-4 text-center">4 (Experto)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Análisis del Proceso</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">No es capaz de identificar dónde está el error en el código.</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">Identifica la zona del error, pero no sabe por qué está mal.</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">Localiza el error y explica por qué la secuencia es incorrecta.</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">Analiza el flujo del programa paso a paso para encontrar el fallo.</td>
+                                    </tr>
+                                    <tr class="bg-white border-b">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Aplicación de la Solución</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">No consigue arreglar el código.</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">Arregla el código, pero introduciendo otros errores.</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">Modifica o añade los bloques necesarios para que funcione.</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">Reestructura el código para que sea más legible y eficiente.</td>
+                                    </tr>
+                                    <tr class="bg-white">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Uso del Recurso Tecnológico</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">Tiene dificultades para manejar la interfaz de TinkerCAD.</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">Sabe iniciar la simulación y ver el código, pero poco más.</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">Se desenvuelve con soltura en el entorno de programación por bloques.</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">Utiliza las herramientas de depuración (si las hubiera) o el monitor serie.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-6 text-right">
+                            <span class="text-gray-600 font-medium">Puntuación Total: </span>
+                            <span id="score-instrument4" class="text-2xl font-bold text-orange-700">0 / 12</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Instrumento 5: Justificación de Materiales -->
+            <section id="instrumento5" class="content-section hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="card rounded-xl shadow-lg p-6 md:p-8">
+                        <h2 class="text-2xl font-bold text-orange-800 mb-4">Instrumento 5: Justificación de Materiales</h2>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-1">Planteamiento de la Tarea</h3>
+                        <p class="text-gray-600 mb-4"><strong>Contexto:</strong> La elección de los materiales para fabricar un producto tiene un impacto enorme en su sostenibilidad.</p>
+                        <p class="text-gray-600 mb-4"><strong>Tu Misión:</strong> Imagina que tienes que fabricar una carcasa para un proyecto de Arduino. Debes elegir entre impresión 3D con plástico **PLA (bioplástico)** o con **ABS (derivado del petróleo)**. Escribe un párrafo en un Google Doc justificando tu elección basándote en criterios de sostenibilidad.</p>
+                    </div>
+
+                    <div class="card rounded-xl shadow-lg p-6 md:p-8 print-area">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-2xl font-bold text-orange-800">Rúbrica de Evaluación</h2>
+                            <button onclick="window.print()" class="no-print bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">Imprimir</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                           <table class="w-full text-sm text-left text-gray-500 rubric-table" data-instrument="5">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-4 w-1/4">Indicador</th>
+                                        <th scope="col" class="py-3 px-4 text-center">1 (Iniciado)</th>
+                                        <th scope="col" class="py-3 px-4 text-center">2 (En desarrollo)</th>
+                                        <th scope="col" class="py-3 px-4 text-center">3 (Competente)</th>
+                                        <th scope="col" class="py-3 px-4 text-center">4 (Experto)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Análisis del Ciclo de Vida</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">La elección se basa en opiniones sin fundamento.</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">Compara los materiales solo por sus propiedades físicas.</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">Considera el origen de los materiales (renovable vs. fósil).</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">Analiza también el fin de vida (biodegradable vs. reciclable).</td>
+                                    </tr>
+                                    <tr class="bg-white border-b">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Aplicación de Conocimientos</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">No diferencia entre los tipos de plásticos.</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">Conoce las diferencias básicas entre PLA y ABS.</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">Aplica correctamente los conceptos de bioplástico y derivado del petróleo.</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">Busca información adicional para enriquecer su argumento.</td>
+                                    </tr>
+                                    <tr class="bg-white">
+                                        <th scope="row" class="py-4 px-4 font-medium text-gray-900">Argumentación Sostenible</th>
+                                        <td class="py-4 px-4 text-center" data-score="1">No hay una justificación clara.</td>
+                                        <td class="py-4 px-4 text-center" data-score="2">La justificación es débil o poco coherente.</td>
+                                        <td class="py-4 px-4 text-center" data-score="3">Justifica su elección con un argumento basado en la sostenibilidad.</td>
+                                        <td class="py-4 px-4 text-center" data-score="4">Construye una argumentación sólida y matizada (pros y contras).</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <div class="mt-6 text-right">
+                            <span class="text-gray-600 font-medium">Puntuación Total: </span>
+                            <span id="score-instrument5" class="text-2xl font-bold text-orange-700">0 / 12</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.dataset.target;
+
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                contentSections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        const rubricTables = document.querySelectorAll('.rubric-table');
+        rubricTables.forEach(table => {
+            const cells = table.querySelectorAll('td');
+            cells.forEach(cell => {
+                cell.addEventListener('click', () => {
+                    const row = cell.parentElement;
+                    row.querySelectorAll('td').forEach(sibling => {
+                        sibling.classList.remove('selected');
+                    });
+                    cell.classList.add('selected');
+                    updateRubricScore(table);
+                });
+            });
+        });
+        
+        const checklists = document.querySelectorAll('[id^="checklist-"]');
+        checklists.forEach(checklist => {
+            const options = checklist.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    const parent = option.parentElement;
+                    const value = option.dataset.value;
+
+                    parent.querySelectorAll('.option').forEach(sibling => {
+                        sibling.classList.remove('selected-yes', 'selected-no');
+                    });
+
+                    if (value === 'yes') {
+                        option.classList.add('selected-yes');
+                    } else {
+                        option.classList.add('selected-no');
+                    }
+                    updateChecklistScore(checklist.id);
+                });
+            });
+        });
+    });
+
+    function updateRubricScore(table) {
+        const instrumentId = table.dataset.instrument;
+        const scoreElement = document.getElementById(`score-instrument${instrumentId}`);
+        const rows = table.querySelectorAll('tbody tr');
+        let maxScore = 0;
+
+        if (rows.length > 0) {
+            const firstRowCells = rows[0].querySelectorAll('td');
+            maxScore = rows.length * (firstRowCells.length > 0 ? firstRowCells.length : 1);
+        }
+        
+        if (instrumentId === '3' || instrumentId === '4' || instrumentId === '5') {
+            maxScore = 12;
+        }
+
+
+        let totalScore = 0;
+        const selectedCells = table.querySelectorAll('td.selected');
+        selectedCells.forEach(cell => {
+            totalScore += parseInt(cell.dataset.score, 10);
+        });
+        
+        scoreElement.textContent = `${totalScore} / ${maxScore}`;
+    }
+
+    function updateChecklistScore(checklistId) {
+        const instrumentId = checklistId.replace('checklist-instrument', '');
+        const scoreElement = document.getElementById(`score-instrument${instrumentId}`);
+        const checklist = document.getElementById(checklistId);
+        const selectedYes = checklist.querySelectorAll('.option.selected-yes').length;
+        const totalItems = checklist.querySelectorAll('.checklist-item').length;
+        
+        scoreElement.textContent = `${selectedYes} / ${totalItems}`;
+    }
+</script>
+
+</body>
+</html>
+
