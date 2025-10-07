@@ -1,7 +1,7 @@
 {
-  "name": "ñ + π: Plan de Lectura y Razonamiento Matemático",
-  "short_name": "Ñ + π",
-  "start_url": "/PlanesIES/index.html",
+  "name": "Evaluación inicial Tecnología 4º ESO",
+  "short_name": "EvalInic4ESO",
+  "start_url": "/TEC4EvalInic/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#3f51b5",
