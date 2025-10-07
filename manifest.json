@@ -1,10 +1,11 @@
 {
-  "name": "Evaluación inicial Tecnología 4º ESO",
-  "short_name": "EvalInic4ESO",
-  "start_url": "/TEC4EvalInic/index.html",
+  "name": "TEC4 Evaluación Inicial",
+  "short_name": "TEC4Eval",
+  "description": "Una aplicación sencilla para la evaluación inicial de TEC4.",
+  "start_url": "/TEC4EvalInic/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#3f51b5",
+  "theme_color": "#007bff",
   "icons": [
     {
       "src": "icon-192x192.png",
@@ -14,8 +15,7 @@
     {
       "src": "icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "type": "image/png"
     }
   ]
 }
