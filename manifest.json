@@ -1,19 +1,20 @@
 {
-  "name": "TEC4 Evaluación Inicial",
-  "short_name": "TEC4Eval",
-  "description": "Una aplicación sencilla para la evaluación inicial de TEC4.",
+  "name": "Evaluación Inicial Tecnología 4º ESO",
+  "short_name": "EvalTec4",
+  "description": "Evaluación inicial de competencias de Tecnología 4º ESO - IES Virgen de Villadiego",
   "start_url": "/TEC4EvalInic/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#007bff",
+  "background_color": "#FDFBF8",
+  "theme_color": "#333",
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "icon-192x192.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-512x512.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
