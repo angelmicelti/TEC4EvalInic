@@ -98,20 +98,13 @@
         </main>
     </div>
 <script>
-  // Comprueba si el navegador soporta Service Workers
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      // Registra el service worker. La ruta debe ser relativa a la raíz del dominio.
-      navigator.serviceWorker.register('/TEC4EvalInic/service-worker.js')
-        .then(registration => {
-          console.log('Service Worker registrado con éxito:', registration);
-        })
-        .catch(err => {
-          console.log('Fallo en el registro del Service Worker:', err);
-        });
-    });
+    navigator.serviceWorker.register('/TEC4EvalInic/service-worker.js')
+      .then(reg => console.log('SW registrado:', reg))
+      .catch(err => console.log('Error SW:', err));
   }
 </script>
+
 </body>
 </html>
 
