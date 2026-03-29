@@ -44,6 +44,18 @@
             background-color: #FFFFFF;
             border: 1px solid #E2E8F0;
         }
+
+        /* Mobile: hide scrollbar on nav but keep functionality */
+        .nav-scroll::-webkit-scrollbar { display: none; }
+        .nav-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Better touch scrolling on rubric tables */
+        .overflow-x-auto { -webkit-overflow-scrolling: touch; }
+        /* Ensure rubric table cells have min touch target */
+        .rubric-table td { min-width: 90px; }
+        /* Responsive header text on very small screens */
+        @media (max-width: 360px) {
+            h1 { font-size: 1.25rem !important; }
+        }
         @media print {
             body * {
                 visibility: hidden;
@@ -67,17 +79,17 @@
 
     <div class="container mx-auto px-4 py-8 md:py-12">
         <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Evaluación de <i>Ideación y Planificación</i></h1>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight">Evaluación de Ideación y Planificación</h1>
             <p class="mt-3 text-lg text-gray-600 max-w-3xl mx-auto">Instrumentos para medir la Competencia Específica <span class="font-semibold text-orange-700">TEC4.1</span> en 4º de ESO.</p>
         </header>
 
-        <div class="w-full max-w-6xl mx-auto mb-10 p-2 bg-white rounded-xl shadow-md no-print">
-            <nav class="flex flex-wrap justify-around items-center">
-                <button data-target="instrumento1" class="nav-btn active flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">1. Mapa de Problemas</button>
-                <button data-target="instrumento2" class="nav-btn flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">2. Lluvia de Ideas</button>
-                <button data-target="instrumento3" class="nav-btn flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">3. Plan de Proyecto</button>
-                <button data-target="instrumento4" class="nav-btn flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">4. Análisis Comparativo</button>
-                <button data-target="instrumento5" class="nav-btn flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">5. Elevator Pitch</button>
+        <div class="w-full max-w-6xl mx-auto mb-10 p-2 bg-white rounded-xl shadow-md no-print overflow-x-auto nav-scroll">
+            <nav class="flex items-stretch min-w-max md:min-w-0 md:flex-wrap md:justify-around">
+                <button data-target="instrumento1" class="nav-btn active flex-none md:flex-1 whitespace-nowrap text-center py-3 px-3 md:px-2 rounded-lg text-gray-700 font-medium text-xs sm:text-sm md:text-base min-h-[44px] flex items-center justify-center">1. Mapa de Problemas</button>
+                <button data-target="instrumento2" class="nav-btn flex-none md:flex-1 whitespace-nowrap text-center py-3 px-3 md:px-2 rounded-lg text-gray-700 font-medium text-xs sm:text-sm md:text-base min-h-[44px] flex items-center justify-center">2. Lluvia de Ideas</button>
+                <button data-target="instrumento3" class="nav-btn flex-none md:flex-1 whitespace-nowrap text-center py-3 px-3 md:px-2 rounded-lg text-gray-700 font-medium text-xs sm:text-sm md:text-base min-h-[44px] flex items-center justify-center">3. Plan de Proyecto</button>
+                <button data-target="instrumento4" class="nav-btn flex-none md:flex-1 whitespace-nowrap text-center py-3 px-3 md:px-2 rounded-lg text-gray-700 font-medium text-xs sm:text-sm md:text-base min-h-[44px] flex items-center justify-center">4. Análisis Comparativo</button>
+                <button data-target="instrumento5" class="nav-btn flex-none md:flex-1 whitespace-nowrap text-center py-3 px-3 md:px-2 rounded-lg text-gray-700 font-medium text-xs sm:text-sm md:text-base min-h-[44px] flex items-center justify-center">5. Elevator Pitch</button>
             </nav>
         </div>
 
@@ -315,8 +327,8 @@
                         
                         <h3 class="text-lg font-semibold text-gray-700 mt-6 mb-3">Contenido de la Tabla Comparativa</h3>
                         <ul class="list-disc list-inside space-y-3 text-gray-600">
-                           <li><b>Fila por cada solución:</b> Cada producto o servicio analizado será una fila.</li>
-                           <li><b>Columnas a analizar:</b>
+                           <li>**Fila por cada solución:** Cada producto o servicio analizado será una fila.</li>
+                           <li>**Columnas a analizar:**
                                 <ul class="list-disc list-inside ml-4 mt-1">
                                     <li>Puntos fuertes y débiles.</li>
                                     <li>Tecnología que utiliza.</li>
@@ -395,10 +407,10 @@
                         
                         <h3 class="text-lg font-semibold text-gray-700 mt-6 mb-3">Estructura del Pitch</h3>
                         <ul class="list-disc list-inside space-y-3 text-gray-600">
-                           <li><b>Problema:</b> Empezad describiendo el problema que solucionáis.</li>
-                           <li><b>Solución:</b> Explicad vuestra idea de forma clara y atractiva.</li>
-                           <li><b>Propuesta de Valor:</b> ¿Por qué vuestra solución es mejor? Destacad su carácter innovador, sostenible y accesible.</li>
-                           <li><b>Cierre:</b> Terminad con una frase memorable que resuma el proyecto.</li>
+                           <li>**Problema:** Empezad describiendo el problema que solucionáis.</li>
+                           <li>**Solución:** Explicad vuestra idea de forma clara y atractiva.</li>
+                           <li>**Propuesta de Valor:** ¿Por qué vuestra solución es mejor? Destacad su carácter innovador, sostenible y accesible.</li>
+                           <li>**Cierre:** Terminad con una frase memorable que resuma el proyecto.</li>
                         </ul>
                     </div>
 
