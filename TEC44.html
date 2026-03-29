@@ -55,6 +55,18 @@
             background-color: #FFFFFF;
             border: 1px solid #E2E8F0;
         }
+
+        /* Mobile: hide scrollbar on nav but keep functionality */
+        .nav-scroll::-webkit-scrollbar { display: none; }
+        .nav-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Better touch scrolling on rubric tables */
+        .overflow-x-auto { -webkit-overflow-scrolling: touch; }
+        /* Ensure rubric table cells have min touch target */
+        .rubric-table td { min-width: 90px; }
+        /* Responsive header text on very small screens */
+        @media (max-width: 360px) {
+            h1 { font-size: 1.25rem !important; }
+        }
         @media print {
             body * {
                 visibility: hidden;
@@ -78,17 +90,17 @@
 
     <div class="container mx-auto px-4 py-8 md:py-12">
         <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Evaluación de <i>Automatización y Robótica</i></h1>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight">Evaluación de Automatización y Robótica</h1>
             <p class="mt-3 text-lg text-gray-600 max-w-3xl mx-auto">Instrumentos para medir la Competencia Específica <span class="font-semibold text-orange-700">TEC4.4</span> en 4º de ESO.</p>
         </header>
 
-        <div class="w-full max-w-6xl mx-auto mb-10 p-2 bg-white rounded-xl shadow-md no-print">
-            <nav class="flex flex-wrap justify-around items-center">
-                <button data-target="instrumento1" class="nav-btn active flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">1. Diagrama de Flujo</button>
-                <button data-target="instrumento2" class="nav-btn flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">2. Pseudocódigo</button>
-                <button data-target="instrumento3" class="nav-btn flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">3. Componentes</button>
-                <button data-target="instrumento4" class="nav-btn flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">4. Reto por Bloques</button>
-                <button data-target="instrumento5" class="nav-btn flex-1 text-center py-3 px-2 rounded-lg text-gray-700 font-medium text-sm md:text-base">5. Ideación Automatizada</button>
+        <div class="w-full max-w-6xl mx-auto mb-10 p-2 bg-white rounded-xl shadow-md no-print overflow-x-auto nav-scroll">
+            <nav class="flex items-stretch min-w-max md:min-w-0 md:flex-wrap md:justify-around">
+                <button data-target="instrumento1" class="nav-btn active flex-none md:flex-1 whitespace-nowrap text-center py-3 px-3 md:px-2 rounded-lg text-gray-700 font-medium text-xs sm:text-sm md:text-base min-h-[44px] flex items-center justify-center">1. Diagrama de Flujo</button>
+                <button data-target="instrumento2" class="nav-btn flex-none md:flex-1 whitespace-nowrap text-center py-3 px-3 md:px-2 rounded-lg text-gray-700 font-medium text-xs sm:text-sm md:text-base min-h-[44px] flex items-center justify-center">2. Pseudocódigo</button>
+                <button data-target="instrumento3" class="nav-btn flex-none md:flex-1 whitespace-nowrap text-center py-3 px-3 md:px-2 rounded-lg text-gray-700 font-medium text-xs sm:text-sm md:text-base min-h-[44px] flex items-center justify-center">3. Componentes</button>
+                <button data-target="instrumento4" class="nav-btn flex-none md:flex-1 whitespace-nowrap text-center py-3 px-3 md:px-2 rounded-lg text-gray-700 font-medium text-xs sm:text-sm md:text-base min-h-[44px] flex items-center justify-center">4. Reto por Bloques</button>
+                <button data-target="instrumento5" class="nav-btn flex-none md:flex-1 whitespace-nowrap text-center py-3 px-3 md:px-2 rounded-lg text-gray-700 font-medium text-xs sm:text-sm md:text-base min-h-[44px] flex items-center justify-center">5. Ideación Automatizada</button>
             </nav>
         </div>
 
@@ -285,7 +297,7 @@
                         <h2 class="text-2xl font-bold text-orange-800 mb-4">Instrumento 4: Mini-Reto de Programación por Bloques</h2>
                         <h3 class="text-xl font-semibold text-gray-700 mb-1">Planteamiento de la Tarea</h3>
                         <p class="text-gray-600 mb-4"><strong>Contexto:</strong> La programación por bloques es una forma visual e intuitiva de dar instrucciones a un dispositivo como una placa Arduino. Vamos a probar tu lógica con un pequeño reto.</p>
-                        <p class="text-gray-600 mb-4"><strong>Tu Misión:</strong> Abre TinkerCAD Circuits. El profesor/a te dará un circuito ya montado con un pulsador y un servomotor. Tu reto es programar con bloques para que, <b>al mantener pulsado el botón, el servomotor gire 90 grados, y al soltarlo, vuelva a su posición original (0 grados)</b>.</p>
+                        <p class="text-gray-600 mb-4"><strong>Tu Misión:</strong> Abre TinkerCAD Circuits. El profesor/a te dará un circuito ya montado con un pulsador y un servomotor. Tu reto es programar con bloques para que, **al mantener pulsado el botón, el servomotor gire 90 grados, y al soltarlo, vuelva a su posición original (0 grados)**.</p>
                         
                         <h3 class="text-lg font-semibold text-gray-700 mt-6 mb-3">Pistas</h3>
                         <ul class="list-disc list-inside space-y-3 text-gray-600">
@@ -367,7 +379,7 @@
                            <li>Un comedero automático para una mascota que le sirva comida dos veces al día.</li>
                            <li>Un sistema de aviso en la biblioteca que se active si el nivel de ruido es demasiado alto.</li>
                         </ul>
-                        <p class="text-gray-600 mt-4">En tu boceto, debes indicar qué <b>sensores</b> usarías y qué <b>actuadores</b> harían la acción final.</p>
+                        <p class="text-gray-600 mt-4">En tu boceto, debes indicar qué **sensores** usarías y qué **actuadores** harían la acción final.</p>
                     </div>
 
                     <div class="card rounded-xl shadow-lg p-6 md:p-8 print-area">
