@@ -1,4 +1,4 @@
-const CACHE_NAME = 'eval-tec4-v1';
+const CACHE_NAME = 'evalinictec4-v2';
 const urlsToCache = [
   '/TEC4EvalInic/',
   '/TEC4EvalInic/index.html',
